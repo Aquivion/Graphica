@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/VulkanSDK/1.4.304.0/include"
+                "C:/VulkanSDK/1.4.304.0/include",
+                "C:/Users/tobaz/Entwicklung/Graphica/libs/glfw/include"
             ],
             "defines": [
                 "_DEBUG",
