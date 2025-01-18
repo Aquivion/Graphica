@@ -2,12 +2,17 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build C++",
+            "label": "Build Vulkan App",
             "type": "shell",
             "command": "g++", // Run g++ compiler (mingw)
             "args": [
                 "-g", // Include debug information
+                "-I",
+                "C:/VulkanSDK/1.4.304.0/include",
                 "${file}", // Open file in VSCode
+                "-L",
+                "C:/VulkanSDK/1.4.304.0/lib",
+                "-lvulkan-1",
                 "-o", // Defines output path + output file name
                 "${fileDirname}/${fileBasenameNoExtension}" // Directory of the currently active file / File name without extension
             ],
