@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [ // Array of configurations, possible to define multiple for different tasks or setups
         {
-            "name": "Debug C++", // Debugging task name
+            "name": "Debug Vulkan App", // Debugging task name
             "type": "cppdbg", // Tells VSCode to use a debugger for C++ (gdb or lldb)
             "request": "launch", // launch new instance of program on running the debugger
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe", // Executable that will be launched once starting debugging
