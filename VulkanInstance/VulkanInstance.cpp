@@ -30,7 +30,7 @@ VulkanInstance::VulkanInstance(const std::string &appName) {
     // Create the Vulkan instance
     if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create Vulkan instance!");
-        }
+    }
 
     std::cout << "Vulkan instance created successfully!" << std::endl;
 }

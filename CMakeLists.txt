@@ -11,6 +11,9 @@ link_directories(${VULKAN_SDK}/lib)
 # GLFW
 add_subdirectory(libs/glfw)
 
+# GLM
+add_subdirectory(libs/glm)
+
 # Collect your source files
 set(SOURCES 
     main.cpp
@@ -29,4 +32,4 @@ set(PRIVATE_INCLUDE_DIRS
 target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCLUDE_DIRS})
 
 # Link GLFW and Vulkan library
-target_link_libraries(${PROJECT_NAME} glfw vulkan-1)
+target_link_libraries(${PROJECT_NAME} glfw vulkan-1 glm::glm)
