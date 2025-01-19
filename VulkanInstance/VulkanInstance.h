@@ -10,15 +10,15 @@
 
 class VulkanInstance {
    public:
+    VulkanInstance() = default;
     VulkanInstance(const std::string &appName);
     ~VulkanInstance();
 
     VkInstance getInstance() const { return instance; }
 
    private:
-    VkInstance instance;
+    VkInstance instance = nullptr;
 
-    std::vector<const char *> getRequiredExtensions();
     void checkExtensionSupport(
         const std::vector<const char *> &requiredExtensions);
 };

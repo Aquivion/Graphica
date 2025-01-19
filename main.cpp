@@ -1,9 +1,10 @@
+#include <cstdlib>
 #include <iostream>
 
 #include "VulkanApp/VulkanApp.h"
 
 int main() {
-    VulkanApp app("VulkanApp");
+    VulkanApp app = VulkanApp();
 
     try {
         app.run();

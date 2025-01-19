@@ -1,12 +1,10 @@
-#include <vulkan/vulkan.h>
-
 #include <iostream>
 
 #include "../VulkanInstance/VulkanInstance.h"
 
 class VulkanApp {
    public:
-    VulkanApp(const std::string& appName);
+    VulkanApp();
     ~VulkanApp();
 
     void run();
@@ -15,6 +13,7 @@ class VulkanApp {
     GLFWwindow* window;
     VulkanInstance vulkanInstance;
 
+    void initVulkan();
     void initGLFW();
     void mainLoop();
     void cleanup();

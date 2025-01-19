@@ -12,20 +12,25 @@ VulkanInstance::VulkanInstance(const std::string &appName) {
     appInfo.pApplicationName = appName.c_str();
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName = "No Engine";
-
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.apiVersion = VK_API_VERSION_1_0;
 
     // Get required extensions
-    auto extensions = getRequiredExtensions();
+    // GLFW requires certain extensions for Vulkan to work with a window
+    uint32_t glfwExtensionCount = 0;
+    const char **glfwExtensions =
+        glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+    std::vector<const char *> extensions(glfwExtensions,
+                                         glfwExtensions + glfwExtensionCount);
     checkExtensionSupport(extensions);
 
     // Vulkan instance creation info
     VkInstanceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &appInfo;
-    createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
-    createInfo.ppEnabledExtensionNames = extensions.data();
+    createInfo.enabledExtensionCount = glfwExtensionCount;
+    createInfo.ppEnabledExtensionNames = glfwExtensions;
+    createInfo.enabledLayerCount = 0;
 
     // Create the Vulkan instance
     if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
@@ -36,17 +41,6 @@ VulkanInstance::VulkanInstance(const std::string &appName) {
 }
 
 VulkanInstance::~VulkanInstance() { vkDestroyInstance(instance, nullptr); }
-
-std::vector<const char *> VulkanInstance::getRequiredExtensions() {
-    // GLFW requires certain extensions for Vulkan to work with a window
-    uint32_t glfwExtensionCount = 0;
-    const char **glfwExtensions =
-        glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-
-    std::vector<const char *> extensions(glfwExtensions,
-                                         glfwExtensions + glfwExtensionCount);
-    return extensions;
-}
 
 void VulkanInstance::checkExtensionSupport(
     const std::vector<const char *> &requiredExtensions) {
