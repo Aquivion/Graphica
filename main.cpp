@@ -1,33 +1,28 @@
-#include "VulkanInstance/VulkanInstance.h"
-#include <vulkan/vulkan.h>
-#include <iostream>
+#include <GLFW/glfw3.h>
 
-const int WIDTH = 800;
-const int HEIGHT = 600;
-
-int main()
+int main(void)
 {
-    glfwInit();
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan Window", nullptr, nullptr);
+    GLFWwindow *window;
 
-    try
-    {
-        VulkanInstance vulkanInstance("My Vulkan App");
+    /* Initialize the library */
+    if (!glfwInit())
+        return -1;
 
-        while (!glfwWindowShouldClose(window))
-        {
-            glfwPollEvents();
-        }
-    }
-    catch (const std::exception &e)
+    /* Create a windowed mode window and its OpenGL context */
+    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (!window)
     {
-        std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
+        glfwTerminate();
+        return -1;
     }
 
-    glfwDestroyWindow(window);
+    /* Loop until the user closes the window */
+    while (!glfwWindowShouldClose(window))
+    {
+        /* Poll for and process events */
+        glfwPollEvents();
+    }
+
     glfwTerminate();
-
-    return EXIT_SUCCESS;
+    return 0;
 }

@@ -1,30 +1,28 @@
 {
-    "version": "0.2.0",
-    "configurations": [ // Array of configurations, possible to define multiple for different tasks or setups
+    // https://code.visualstudio.com/docs/editor/variables-reference
+    // https://code.visualstudio.com/docs/cpp/launch-json-reference
+    // https://vector-of-bool.github.io/docs/vscode-cmake-tools/debugging.html
+    "configurations": [
         {
-            "name": "Debug Vulkan App", // Debugging task name
-            "type": "cppdbg", // Tells VSCode to use a debugger for C++ (gdb or lldb)
-            "request": "launch", // launch new instance of program on running the debugger
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe", // Executable that will be launched once starting debugging
-            "args": [],
-            "stopAtEntry": false, // If true debugger will stop at the entry point of the program
-            "cwd": "${workspaceFolder}", // Current working directory
+            // launch cmake target based on exe source file active in editor
+            "name": "Debug",
+            "program": "${command:cmake.launchTargetDirectory}/VulkanTest.exe",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "request": "launch",
+            "type": "cppvsdbg",
+            "stopAtEntry": false,
+            "logging": {
+                "moduleLoad": false,
+                "trace": true,
+            },
             "environment": [
                 {
                     "name": "PATH",
-                    "value": "C:\\msys64\\mingw64\\bin;"
-                }
+                    "value": "$PATH:${command:cmake.launchTargetDirectory}",
+                },
             ],
-            "externalConsole": true, // Open in external terminal / console
-            "MIMode": "gdb", // GNU debugger
-            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
-        }
-    ],
+            "args": [],
+        },
+    ]
 }
