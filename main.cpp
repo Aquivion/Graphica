@@ -5,8 +5,9 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-void cleanup()
+void cleanup(GLFWwindow *window)
 {
+    glfwDestroyWindow(window);
     glfwTerminate();
 }
 
@@ -17,6 +18,9 @@ int main()
         std::cerr << "glfw initialization failed" << std::endl;
         return EXIT_FAILURE;
     }
+
+    // Define client api to GLFW_NO_API, otherwise the default API is OpenGL
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
     GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan Window", nullptr, nullptr);
 
@@ -39,11 +43,11 @@ int main()
     catch (const std::exception &e)
     {
         std::cerr << e.what() << std::endl;
+        cleanup(window);
         return EXIT_FAILURE;
     }
 
-    glfwDestroyWindow(window);
-    cleanup();
+    cleanup(window);
 
     return EXIT_SUCCESS;
 }
