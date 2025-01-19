@@ -3,14 +3,13 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-VulkanApp::VulkanApp(const std::string &appName) {
-    this->initGLFW();
-    this->vulkanInstance = new VulkanInstance(appName);
+VulkanApp::VulkanApp(const std::string &appName) : vulkanInstance{appName} {
+    initGLFW();
 }
 
-VulkanApp::~VulkanApp() { this->cleanup(); }
+VulkanApp::~VulkanApp() { cleanup(); }
 
-void VulkanApp::run() { this->mainLoop(); }
+void VulkanApp::run() { mainLoop(); }
 
 void VulkanApp::initGLFW() {
     if (!glfwInit()) {
@@ -21,11 +20,10 @@ void VulkanApp::initGLFW() {
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-    this->window =
-        glfwCreateWindow(WIDTH, HEIGHT, "Graphica", nullptr, nullptr);
+    window = glfwCreateWindow(WIDTH, HEIGHT, "Graphica", nullptr, nullptr);
 
     if (!window) {
-        throw std::runtime_error("Failed to create window");
+        throw std::runtime_error("Failed to create glfw window");
     }
 }
 

@@ -6,14 +6,14 @@
 
 class VulkanApp {
    public:
-    VulkanApp(const std::string &appName);
+    VulkanApp(const std::string& appName);
     ~VulkanApp();
 
     void run();
 
    private:
-    GLFWwindow *window;
-    VulkanInstance *vulkanInstance;
+    GLFWwindow* window;
+    VulkanInstance vulkanInstance;
 
     void initGLFW();
     void mainLoop();
