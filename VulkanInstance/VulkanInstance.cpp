@@ -1,11 +1,11 @@
 
 #include "VulkanInstance.h"
-#include <stdexcept>
-#include <iostream>
-#include <cstring>
 
-VulkanInstance::VulkanInstance(const std::string &appName)
-{
+#include <cstring>
+#include <iostream>
+#include <stdexcept>
+
+VulkanInstance::VulkanInstance(const std::string &appName) {
     // Application information
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -28,51 +28,46 @@ VulkanInstance::VulkanInstance(const std::string &appName)
     createInfo.ppEnabledExtensionNames = extensions.data();
 
     // Create the Vulkan instance
-    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS)
-    {
+    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create Vulkan instance!");
-    }
+        }
 
     std::cout << "Vulkan instance created successfully!" << std::endl;
 }
 
-VulkanInstance::~VulkanInstance()
-{
-    vkDestroyInstance(instance, nullptr);
-}
+VulkanInstance::~VulkanInstance() { vkDestroyInstance(instance, nullptr); }
 
-std::vector<const char *> VulkanInstance::getRequiredExtensions()
-{
+std::vector<const char *> VulkanInstance::getRequiredExtensions() {
     // GLFW requires certain extensions for Vulkan to work with a window
     uint32_t glfwExtensionCount = 0;
-    const char **glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+    const char **glfwExtensions =
+        glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-    std::vector<const char *> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+    std::vector<const char *> extensions(glfwExtensions,
+                                         glfwExtensions + glfwExtensionCount);
     return extensions;
 }
 
-void VulkanInstance::checkExtensionSupport(const std::vector<const char *> &requiredExtensions)
-{
+void VulkanInstance::checkExtensionSupport(
+    const std::vector<const char *> &requiredExtensions) {
     uint32_t extensionCount = 0;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
 
     std::vector<VkExtensionProperties> availableExtensions(extensionCount);
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, availableExtensions.data());
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount,
+                                           availableExtensions.data());
 
-    for (const char *required : requiredExtensions)
-    {
+    for (const char *required : requiredExtensions) {
         bool found = false;
-        for (const auto &extension : availableExtensions)
-        {
-            if (strcmp(required, extension.extensionName) == 0)
-            {
+        for (const auto &extension : availableExtensions) {
+            if (strcmp(required, extension.extensionName) == 0) {
                 found = true;
                 break;
             }
         }
-        if (!found)
-        {
-            throw std::runtime_error(std::string("Missing required Vulkan extension: ") + required);
+        if (!found) {
+            throw std::runtime_error(
+                std::string("Missing required Vulkan extension: ") + required);
         }
     }
 }

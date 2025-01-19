@@ -14,6 +14,7 @@ add_subdirectory(libs/glfw)
 # Collect your source files
 set(SOURCES 
     main.cpp
+    VulkanApp/VulkanApp.cpp
     VulkanInstance/VulkanInstance.cpp)
 
 # Executable

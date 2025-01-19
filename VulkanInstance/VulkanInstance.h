@@ -3,24 +3,24 @@
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-
 #include <vulkan/vulkan.h>
-#include <vector>
-#include <string>
 
-class VulkanInstance
-{
-public:
+#include <iostream>
+#include <vector>
+
+class VulkanInstance {
+   public:
     VulkanInstance(const std::string &appName);
     ~VulkanInstance();
 
     VkInstance getInstance() const { return instance; }
 
-private:
+   private:
     VkInstance instance;
 
     std::vector<const char *> getRequiredExtensions();
-    void checkExtensionSupport(const std::vector<const char *> &requiredExtensions);
+    void checkExtensionSupport(
+        const std::vector<const char *> &requiredExtensions);
 };
 
-#endif // VULKAN_INSTANCE_H
+#endif  // VULKAN_INSTANCE_H
