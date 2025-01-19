@@ -38,6 +38,7 @@ void VulkanApp::mainLoop() {
 }
 
 void VulkanApp::cleanup() {
+    vkDestroyInstance(vulkanInstance.getInstance(), nullptr);
     glfwDestroyWindow(window);
     glfwTerminate();
 }

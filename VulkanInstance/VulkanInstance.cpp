@@ -40,8 +40,6 @@ VulkanInstance::VulkanInstance(const std::string &appName) {
     std::cout << "Vulkan instance created successfully!" << std::endl;
 }
 
-VulkanInstance::~VulkanInstance() { vkDestroyInstance(instance, nullptr); }
-
 void VulkanInstance::checkExtensionSupport(
     const std::vector<const char *> &requiredExtensions) {
     uint32_t extensionCount = 0;

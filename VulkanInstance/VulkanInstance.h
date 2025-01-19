@@ -12,7 +12,6 @@ class VulkanInstance {
    public:
     VulkanInstance() = default;
     VulkanInstance(const std::string &appName);
-    ~VulkanInstance();
 
     VkInstance getInstance() const { return instance; }
 
