@@ -5,7 +5,15 @@
 #include <iostream>
 #include <stdexcept>
 
+#ifndef NDEBUG
+const bool enableValidationLayers = true;
+#else
+const bool enableValidationLayers = false;
+#endif
+
 VulkanInstance::VulkanInstance(const std::string &appName) {
+    validationLayers = {"VK_LAYER_KHRONOS_validation"};
+
     // Application information
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;

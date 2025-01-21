@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../VulkanInstance/VulkanInstance.h"
+#include "../Vulkan/VulkanInstance/VulkanInstance.h"
 
 class VulkanApp {
    public:

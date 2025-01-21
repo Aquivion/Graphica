@@ -18,7 +18,7 @@ add_subdirectory(libs/glm)
 set(SOURCES 
     main.cpp
     VulkanApp/VulkanApp.cpp
-    VulkanInstance/VulkanInstance.cpp)
+    Vulkan/VulkanInstance/VulkanInstance.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})

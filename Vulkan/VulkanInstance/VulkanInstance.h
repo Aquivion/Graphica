@@ -17,6 +17,7 @@ class VulkanInstance {
 
    private:
     VkInstance instance = nullptr;
+    std::vector<const char *> validationLayers;
 
     void checkExtensionSupport(
         const std::vector<const char *> &requiredExtensions);
