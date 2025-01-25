@@ -4,13 +4,13 @@
     // https://vector-of-bool.github.io/docs/vscode-cmake-tools/debugging.html
     "configurations": [
         {
-            // launch cmake target based on exe source file active in editor
             "name": "Debug",
-            "program": "${command:cmake.launchTargetDirectory}/VulkanTest.exe",
+            "program": "${command:cmake.launchTargetDirectory}/Graphica.exe",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "request": "launch",
             "type": "cppvsdbg",
+            // "preLaunchTask": "Run Clang Tidy",
             "stopAtEntry": false,
             "logging": {
                 "moduleLoad": false,

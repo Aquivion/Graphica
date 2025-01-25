@@ -1,5 +1,5 @@
 #ifndef VULKAN_PHYSICAL_DEVICE
-#define VULKAN_PHYISCAL_DEVICE
+#define VULKAN_PHYSICAL_DEVICE
 
 #include <vulkan/vulkan.h>
 

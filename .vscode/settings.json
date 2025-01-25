@@ -4,6 +4,18 @@
         "iostream": "cpp",
         "stdexcept": "cpp"
     },
+    "cmake.generator": "Ninja",
     "editor.formatOnSave": true,
-    "C_Cpp.formatting": "clangFormat"
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.codeAnalysis.clangTidy.config": ".clang-tidy",
+    "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
+    "clang-tidy.buildPath": "build",
+    "clang-tidy.checks": [
+        "cppcoreguidelines-*"
+    ],
+    "clang-tidy.blacklist": [
+        "build",
+        "libs"
+    ],
 }

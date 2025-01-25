@@ -11,13 +11,17 @@ class VulkanApp {
     VulkanApp();
     ~VulkanApp();
 
+    VulkanApp(const VulkanApp &) = delete;
+    VulkanApp &operator=(const VulkanApp &) = delete;
+    VulkanApp(VulkanApp &&) = delete;
+    VulkanApp &operator=(VulkanApp &&) = delete;
+
     void run();
 
    private:
-    GLFWwindow* window;
+    GLFWwindow *window;
     VulkanInstance vulkanInstance;
 
-    void initVulkan();
     void initGLFW();
     void mainLoop();
     void cleanup();

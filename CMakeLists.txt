@@ -3,6 +3,8 @@ project(Graphica)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Vulkan SDK
 set(VULKAN_SDK "C:/VulkanSDK/1.4.304.0")
 include_directories(${VULKAN_SDK}/include)
@@ -18,7 +20,7 @@ add_subdirectory(libs/glm)
 set(SOURCES 
     main.cpp
     VulkanApp/VulkanApp.cpp
-    Vulkan/VulkanInstance/VulkanInstance.cpp)
+    MyVulkan/VulkanInstance/VulkanInstance.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -29,7 +31,7 @@ set(PRIVATE_INCLUDE_DIRS
     libs/glfw/include)
 
 # Include directories
-target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCLUDE_DIRS} ./Vulkan/)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCLUDE_DIRS} ./MyVulkan/)
 
 # Link GLFW and Vulkan library
 target_link_libraries(${PROJECT_NAME} glfw vulkan-1 glm::glm)

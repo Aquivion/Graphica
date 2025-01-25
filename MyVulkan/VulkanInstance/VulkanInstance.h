@@ -12,6 +12,12 @@ class VulkanInstance {
     VulkanInstance() = default;
     VulkanInstance(const std::string &appName);
 
+    ~VulkanInstance() = default;
+    VulkanInstance(const VulkanInstance &) = delete;
+    VulkanInstance &operator=(const VulkanInstance &) = delete;
+    VulkanInstance(VulkanInstance &&) = delete;
+    VulkanInstance &operator=(VulkanInstance &&) = delete;
+
     VkInstance getInstance() const { return instance; }
 
    private:

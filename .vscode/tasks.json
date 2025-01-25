@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Clang Tidy",
+            "type": "shell",
+            "command": "clang-tidy",
+            "args": [
+                "-p",
+                "build",
+                "main.cpp",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

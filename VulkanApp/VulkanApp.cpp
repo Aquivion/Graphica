@@ -6,18 +6,16 @@
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
-const char* PROJECT_NAME = "Graphica";
+const auto PROJECT_NAME = "Graphica";
 
-VulkanApp::VulkanApp() {
-    initGLFW();
-    initVulkan();
-}
+VulkanApp::VulkanApp() : vulkanInstance{PROJECT_NAME} {}
 
 VulkanApp::~VulkanApp() { cleanup(); }
 
-void VulkanApp::run() { mainLoop(); }
-
-void VulkanApp::initVulkan() { vulkanInstance = VulkanInstance(PROJECT_NAME); }
+void VulkanApp::run() {
+    initGLFW();
+    mainLoop();
+}
 
 void VulkanApp::initGLFW() {
     if (!glfwInit()) {
