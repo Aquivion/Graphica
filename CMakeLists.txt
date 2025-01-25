@@ -29,7 +29,7 @@ set(PRIVATE_INCLUDE_DIRS
     libs/glfw/include)
 
 # Include directories
-target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCLUDE_DIRS} ./Vulkan/)
 
 # Link GLFW and Vulkan library
 target_link_libraries(${PROJECT_NAME} glfw vulkan-1 glm::glm)

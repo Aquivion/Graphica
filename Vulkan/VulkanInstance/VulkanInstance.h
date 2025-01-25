@@ -2,10 +2,9 @@
 #define VULKAN_INSTANCE_H
 
 #define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 
-#include <iostream>
+#include <string>
 #include <vector>
 
 class VulkanInstance {
@@ -18,7 +17,6 @@ class VulkanInstance {
    private:
     VkInstance instance = nullptr;
     std::vector<const char *> validationLayers;
-    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 
     void checkExtensionSupport(const std::vector<const char *> &requiredExtensions);
     bool checkValidationLayerSupport();

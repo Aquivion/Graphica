@@ -1,6 +1,10 @@
-#include <iostream>
+#ifndef VULKAN_APP
+#define VULKAN_APP
 
-#include "../Vulkan/VulkanInstance/VulkanInstance.h"
+#include "VulkanInstance/VulkanInstance.h"
+
+struct GLFWwindow;
+class VulkanInstance;
 
 class VulkanApp {
    public:
@@ -18,3 +22,5 @@ class VulkanApp {
     void mainLoop();
     void cleanup();
 };
+
+#endif  // VULKAN_APP_H

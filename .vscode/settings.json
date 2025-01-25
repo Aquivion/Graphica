@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "editor.wordWrapColumn": "120",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "stdexcept": "cpp"
     },
     "editor.formatOnSave": true,
     "C_Cpp.formatting": "clangFormat"

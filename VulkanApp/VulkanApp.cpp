@@ -1,5 +1,9 @@
 #include "VulkanApp.h"
 
+#include <GLFW/glfw3.h>
+
+#include <stdexcept>
+
 const int WIDTH = 800;
 const int HEIGHT = 600;
 const char* PROJECT_NAME = "Graphica";

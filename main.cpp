@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <iostream>
 
 #include "VulkanApp/VulkanApp.h"
