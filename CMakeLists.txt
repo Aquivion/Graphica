@@ -20,7 +20,8 @@ add_subdirectory(libs/glm)
 set(SOURCES 
     main.cpp
     VulkanApp/VulkanApp.cpp
-    MyVulkan/VulkanInstance/VulkanInstance.cpp)
+    MyVulkan/VulkanInstance/VulkanInstance.cpp
+    MyVulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})
