@@ -1,5 +1,4 @@
-#ifndef VULKAN_INSTANCE_H
-#define VULKAN_INSTANCE_H
+#pragma once
 
 #define GLFW_INCLUDE_VULKAN
 #include <vulkan/vulkan.h>
@@ -31,5 +30,3 @@ class VulkanInstance {
     void setupCreateInfo(VkInstanceCreateInfo &createInfo, VkApplicationInfo &appInfo);
     void setupValidationLayers(VkInstanceCreateInfo &createInfo);
 };
-
-#endif  // VULKAN_INSTANCE_H

@@ -1,5 +1,4 @@
-#ifndef VULKAN_APP
-#define VULKAN_APP
+#pragma once
 
 #include "VulkanInstance/VulkanInstance.h"
 
@@ -26,5 +25,3 @@ class VulkanApp {
     void mainLoop();
     void cleanup();
 };
-
-#endif  // VULKAN_APP_H

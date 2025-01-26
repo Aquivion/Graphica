@@ -1,5 +1,4 @@
-#ifndef VULKAN_PHYSICAL_DEVICE
-#define VULKAN_PHYSICAL_DEVICE
+#pragma once
 
 #include <vulkan/vulkan.h>
 
@@ -10,6 +9,5 @@ class VulkanPhysicalDevice {
    private:
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     void pickPhysicalDevice(VkInstance instance);
+    bool isDeviceSuitable(VkPhysicalDevice device);
 };
-
-#endif  // VULKAN_PHYSICAL_DEVICE_H
