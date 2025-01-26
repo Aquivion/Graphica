@@ -1,6 +1,6 @@
 {
     "files.associations": {
-        "editor.wordWrapColumn": "120",
+        "editor.wordWrapColumn": "100",
         "iostream": "cpp",
         "stdexcept": "cpp"
     },
