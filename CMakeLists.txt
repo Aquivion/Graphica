@@ -18,11 +18,11 @@ add_subdirectory(libs/glm)
 
 # Collect your source files
 set(SOURCES 
-    main.cpp
-    VulkanApp/VulkanApp.cpp
-    MyVulkan/VulkanCore/VulkanCore.cpp
-    MyVulkan/VulkanInstance/VulkanInstance.cpp
-    MyVulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.cpp)
+    src/main.cpp
+    src/VulkanApp/VulkanApp.cpp
+    src/Vulkan/VulkanCore/VulkanCore.cpp
+    src/Vulkan/VulkanInstance/VulkanInstance.cpp
+    src/Vulkan/VulkanDevices/VulkanDevices.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -33,7 +33,7 @@ set(PRIVATE_INCLUDE_DIRS
     libs/glfw/include)
 
 # Include directories
-target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCLUDE_DIRS} ./MyVulkan/)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PRIVATE_INCLUDE_DIRS} ./src/)
 
 # Link GLFW and Vulkan library
 target_link_libraries(${PROJECT_NAME} glfw vulkan-1 glm::glm)

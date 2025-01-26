@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VulkanCore/VulkanCore.h"
+#include "Vulkan/VulkanCore/VulkanCore.h"
 
 struct GLFWwindow;
 class VulkanInstance;

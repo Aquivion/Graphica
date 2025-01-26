@@ -8,7 +8,7 @@
             "args": [
                 "-p",
                 "build",
-                "main.cpp",
+                "src/main.cpp",
             ],
             "group": {
                 "kind": "build",
