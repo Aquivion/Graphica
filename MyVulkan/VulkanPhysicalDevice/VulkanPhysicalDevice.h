@@ -11,16 +11,19 @@ struct QueueFamilyIndices {
 
 class VulkanPhysicalDevice {
    public:
+    VulkanPhysicalDevice() = default;
+    void pickPhysicalDevice(VkInstance instance);
     VkPhysicalDevice getPhysicalDevice() { return physicalDevice; }
 
    private:
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-    void pickPhysicalDevice(VkInstance instance);
+
     /**
      * @brief Checks if the physical device (graphics card) is suitable for operations that need to
      * be performed
      */
     bool isDeviceSuitable(VkPhysicalDevice device);
+
     /**
      * @brief Finds the supported queue families for the given device. Every command that is
      * interacting with the graphics card needs to be submitted to a queue. There are different

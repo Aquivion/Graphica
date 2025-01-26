@@ -8,7 +8,7 @@ const int WIDTH = 800;
 const int HEIGHT = 600;
 const auto PROJECT_NAME = "Graphica";
 
-VulkanApp::VulkanApp() : vulkanInstance{PROJECT_NAME} {}
+VulkanApp::VulkanApp() : vulkanCore{PROJECT_NAME} {}
 
 VulkanApp::~VulkanApp() { cleanup(); }
 
@@ -40,7 +40,7 @@ void VulkanApp::mainLoop() {
 }
 
 void VulkanApp::cleanup() {
-    vkDestroyInstance(vulkanInstance.getInstance(), nullptr);
+    vkDestroyInstance(vulkanCore.getVkInstance(), nullptr);
     glfwDestroyWindow(window);
     glfwTerminate();
 }

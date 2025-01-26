@@ -72,8 +72,9 @@ void VulkanInstance::checkExtensionSupport(const std::vector<const char *> &requ
 }
 
 void VulkanInstance::setupValidationLayers(VkInstanceCreateInfo &createInfo) {
-    // todo: See https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/00_Setup/02_Validation_layers.html to
-    // setup a callback function to manage error messages
+    // todo: See
+    // https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/00_Setup/02_Validation_layers.html
+    // to setup a callback function to manage error messages
 
     validationLayers = {"VK_LAYER_KHRONOS_validation"};
 

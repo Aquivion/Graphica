@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VulkanInstance/VulkanInstance.h"
+#include "VulkanCore/VulkanCore.h"
 
 struct GLFWwindow;
 class VulkanInstance;
@@ -19,7 +19,7 @@ class VulkanApp {
 
    private:
     GLFWwindow *window;
-    VulkanInstance vulkanInstance;
+    VulkanCore vulkanCore;
 
     void initGLFW();
     void mainLoop();

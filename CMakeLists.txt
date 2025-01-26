@@ -20,6 +20,7 @@ add_subdirectory(libs/glm)
 set(SOURCES 
     main.cpp
     VulkanApp/VulkanApp.cpp
+    MyVulkan/VulkanCore/VulkanCore.cpp
     MyVulkan/VulkanInstance/VulkanInstance.cpp
     MyVulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.cpp)
 
