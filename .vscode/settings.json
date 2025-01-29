@@ -2,7 +2,8 @@
     "files.associations": {
         "editor.wordWrapColumn": "100",
         "iostream": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "xstring": "cpp"
     },
     "cmake.generator": "Ninja",
     "editor.formatOnSave": true,

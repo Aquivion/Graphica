@@ -8,7 +8,7 @@ class VulkanInstance;
 class VulkanApp {
    public:
     VulkanApp();
-    ~VulkanApp();
+    ~VulkanApp() = default;
 
     VulkanApp(const VulkanApp &) = delete;
     VulkanApp &operator=(const VulkanApp &) = delete;

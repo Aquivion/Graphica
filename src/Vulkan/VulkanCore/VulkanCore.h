@@ -12,6 +12,12 @@ class VulkanCore {
     VulkanCore() = default;
     VulkanCore(const std::string &appName);
 
+    ~VulkanCore() = default;
+    VulkanCore(const VulkanCore &) = delete;
+    VulkanCore &operator=(const VulkanCore &) = delete;
+    VulkanCore(VulkanCore &&) = delete;
+    VulkanCore &operator=(VulkanCore &&) = delete;
+
     VkInstance getVkInstance() { return vulkanInstance.getInstance(); }
 
     void cleanup();

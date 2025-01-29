@@ -2,6 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
+#include <iostream>
 #include <stdexcept>
 
 const int WIDTH = 800;
@@ -10,11 +11,10 @@ const auto PROJECT_NAME = "Graphica";
 
 VulkanApp::VulkanApp() : vulkanCore{PROJECT_NAME} {}
 
-VulkanApp::~VulkanApp() { cleanup(); }
-
 void VulkanApp::run() {
     initGLFW();
     mainLoop();
+    cleanup();
 }
 
 void VulkanApp::initGLFW() {
@@ -40,10 +40,10 @@ void VulkanApp::mainLoop() {
 }
 
 void VulkanApp::cleanup() {
+    vulkanCore.cleanup();
+
     vkDestroyInstance(vulkanCore.getVkInstance(), nullptr);
 
     glfwDestroyWindow(window);
     glfwTerminate();
-
-    vulkanCore.cleanup();
 }

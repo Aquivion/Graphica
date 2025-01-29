@@ -12,6 +12,6 @@ void VulkanCore::init() {
     logicalDevice.createLogicalDevice(physicalDevice.getPhysicalDevice());
 }
 
-void VulkanCore::cleanup() {}
+void VulkanCore::cleanup() { logicalDevice.cleanup(); }
 
 }  // namespace VulkanCore
