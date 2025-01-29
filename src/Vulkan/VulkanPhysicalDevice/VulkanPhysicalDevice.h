@@ -4,14 +4,25 @@
 
 #include <optional>
 
+namespace VulkanCore {
+
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
     bool isComplete() { return graphicsFamily.has_value(); }
 };
 
+/**
+ * @brief Finds the supported queue families for the given device. Every command that is
+ * interacting with the graphics card needs to be submitted to a queue. There are different
+ * types of queues distinguished by their family. Every Queue family allows only a subset of
+ * commands
+ */
+QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+
 class VulkanPhysicalDevice {
    public:
     VulkanPhysicalDevice() = default;
+
     void pickPhysicalDevice(VkInstance instance);
     VkPhysicalDevice getPhysicalDevice() { return physicalDevice; }
 
@@ -23,12 +34,6 @@ class VulkanPhysicalDevice {
      * be performed
      */
     bool isDeviceSuitable(VkPhysicalDevice device);
-
-    /**
-     * @brief Finds the supported queue families for the given device. Every command that is
-     * interacting with the graphics card needs to be submitted to a queue. There are different
-     * types of queues distinguished by their family. Every Queue family allows only a subset of
-     * commands
-     */
-    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
 };
+
+}  // namespace VulkanCore

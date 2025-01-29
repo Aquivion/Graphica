@@ -41,6 +41,9 @@ void VulkanApp::mainLoop() {
 
 void VulkanApp::cleanup() {
     vkDestroyInstance(vulkanCore.getVkInstance(), nullptr);
+
     glfwDestroyWindow(window);
     glfwTerminate();
+
+    vulkanCore.cleanup();
 }

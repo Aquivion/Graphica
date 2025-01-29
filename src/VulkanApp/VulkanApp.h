@@ -19,7 +19,7 @@ class VulkanApp {
 
    private:
     GLFWwindow *window;
-    VulkanCore vulkanCore;
+    VulkanCore::VulkanCore vulkanCore;
 
     void initGLFW();
     void mainLoop();

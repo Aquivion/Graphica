@@ -22,7 +22,8 @@ set(SOURCES
     src/VulkanApp/VulkanApp.cpp
     src/Vulkan/VulkanCore/VulkanCore.cpp
     src/Vulkan/VulkanInstance/VulkanInstance.cpp
-    src/Vulkan/VulkanDevices/VulkanDevices.cpp)
+    src/Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.cpp
+    src/Vulkan/VulkanLogicalDevice/VulkanLogicalDevice.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})

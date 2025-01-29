@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Vulkan/VulkanDevices/VulkanDevices.h"
 #include "Vulkan/VulkanInstance/VulkanInstance.h"
+#include "Vulkan/VulkanLogicalDevice/VulkanLogicalDevice.h"
+#include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h"
 #include "vulkan/vulkan.h"
 
-/**
- * @brief The Vulkan Core that manages all Vulkan related objects and features
- */
+namespace VulkanCore {
+
 class VulkanCore {
    public:
     VulkanCore() = default;
@@ -14,9 +14,14 @@ class VulkanCore {
 
     VkInstance getVkInstance() { return vulkanInstance.getInstance(); }
 
+    void cleanup();
+
    private:
     void init();
 
     VulkanInstance vulkanInstance;
-    VulkanPhysicalDevice vulkanPhysicalDevice;
+    VulkanPhysicalDevice physicalDevice;
+    VulkanLogicalDevice logicalDevice;
 };
+
+}  // namespace VulkanCore

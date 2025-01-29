@@ -1,6 +1,17 @@
 #include "VulkanCore.h"
 
-VulkanCore::VulkanCore(const std::string &appName)
-    : vulkanInstance{appName}, vulkanPhysicalDevice{} {}
+namespace VulkanCore {
 
-void VulkanCore::init() { vulkanPhysicalDevice.pickPhysicalDevice(vulkanInstance.getInstance()); }
+VulkanCore::VulkanCore(const std::string &appName)
+    : vulkanInstance{appName}, physicalDevice{}, logicalDevice{} {
+    init();
+}
+
+void VulkanCore::init() {
+    physicalDevice.pickPhysicalDevice(vulkanInstance.getInstance());
+    logicalDevice.createLogicalDevice(physicalDevice.getPhysicalDevice());
+}
+
+void VulkanCore::cleanup() {}
+
+}  // namespace VulkanCore
