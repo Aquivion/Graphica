@@ -12,7 +12,9 @@ const bool enableValidationLayers = true;
 const bool enableValidationLayers = false;
 #endif
 
-VulkanInstance::VulkanInstance(const std::string &appName) {
+namespace VulkanCore {
+
+void VulkanInstance::createInstance(const std::string &appName) {
     VkApplicationInfo appInfo{};
     setupAppInfo(appInfo, appName);
 
@@ -39,7 +41,8 @@ void VulkanInstance::setupAppInfo(VkApplicationInfo &appInfo, const std::string 
 void VulkanInstance::setupCreateInfo(VkInstanceCreateInfo &createInfo, VkApplicationInfo &appInfo) {
     // GLFW requires certain extensions for Vulkan to work with a window
     uint32_t glfwExtensionCount = 0;
-    const char **glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+    const char **glfwExtensions;
+    glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
     std::vector<const char *> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
     checkExtensionSupport(extensions);
 
@@ -113,3 +116,13 @@ bool VulkanInstance::checkValidationLayerSupport() {
         }
     }
 }
+
+VkInstance VulkanInstance::getInstance() const {
+    if (instance == VK_NULL_HANDLE) {
+        throw std::runtime_error("Trying to access uninitialized vulkan instance!");
+    }
+
+    return instance;
+}
+
+}  // namespace VulkanCore

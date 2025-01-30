@@ -3,14 +3,14 @@
 #include "Vulkan/VulkanInstance/VulkanInstance.h"
 #include "Vulkan/VulkanLogicalDevice/VulkanLogicalDevice.h"
 #include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h"
+#include "Vulkan/VulkanSurface/VulkanSurface.h"
 #include "vulkan/vulkan.h"
 
 namespace VulkanCore {
 
 class VulkanCore {
    public:
-    VulkanCore() = default;
-    VulkanCore(const std::string &appName);
+    VulkanCore();
 
     ~VulkanCore() = default;
     VulkanCore(const VulkanCore &) = delete;
@@ -20,14 +20,15 @@ class VulkanCore {
 
     VkInstance getVkInstance() { return vulkanInstance.getInstance(); }
 
+    void init(GLFWwindow *window, const std::string &appName);
+
     void cleanup();
 
    private:
-    void init();
-
     VulkanInstance vulkanInstance;
     VulkanPhysicalDevice physicalDevice;
     VulkanLogicalDevice logicalDevice;
+    VulkanSurface surface;
 };
 
 }  // namespace VulkanCore

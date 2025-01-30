@@ -1,8 +1,11 @@
 #pragma once
 
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+#include <vulkan/vulkan.h>
+
 #include "Vulkan/VulkanCore/VulkanCore.h"
 
-struct GLFWwindow;
 class VulkanInstance;
 
 class VulkanApp {
@@ -22,6 +25,7 @@ class VulkanApp {
     VulkanCore::VulkanCore vulkanCore;
 
     void initGLFW();
+    void initVulkan();
     void mainLoop();
     void cleanup();
 };

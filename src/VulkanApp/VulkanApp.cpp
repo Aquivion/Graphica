@@ -1,7 +1,5 @@
 #include "VulkanApp.h"
 
-#include <GLFW/glfw3.h>
-
 #include <iostream>
 #include <stdexcept>
 
@@ -9,13 +7,16 @@ const int WIDTH = 800;
 const int HEIGHT = 600;
 const auto PROJECT_NAME = "Graphica";
 
-VulkanApp::VulkanApp() : vulkanCore{PROJECT_NAME} {}
+VulkanApp::VulkanApp() : vulkanCore{} {}
 
 void VulkanApp::run() {
     initGLFW();
+    initVulkan();
     mainLoop();
     cleanup();
 }
+
+void VulkanApp::initVulkan() { vulkanCore.init(window, PROJECT_NAME); }
 
 void VulkanApp::initGLFW() {
     if (!glfwInit()) {
@@ -40,6 +41,7 @@ void VulkanApp::mainLoop() {
 }
 
 void VulkanApp::cleanup() {
+    // Vulkan objects like devices and surfaces need to be destroyed before the instance is
     vulkanCore.cleanup();
 
     vkDestroyInstance(vulkanCore.getVkInstance(), nullptr);

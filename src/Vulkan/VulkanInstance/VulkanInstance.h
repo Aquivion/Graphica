@@ -1,15 +1,15 @@
 #pragma once
 
-#define GLFW_INCLUDE_VULKAN
 #include <vulkan/vulkan.h>
 
 #include <string>
 #include <vector>
 
+namespace VulkanCore {
+
 class VulkanInstance {
    public:
     VulkanInstance() = default;
-    VulkanInstance(const std::string &appName);
 
     ~VulkanInstance() = default;
     VulkanInstance(const VulkanInstance &) = delete;
@@ -17,7 +17,8 @@ class VulkanInstance {
     VulkanInstance(VulkanInstance &&) = delete;
     VulkanInstance &operator=(VulkanInstance &&) = delete;
 
-    VkInstance getInstance() const { return instance; }
+    void createInstance(const std::string &appName);
+    VkInstance getInstance() const;
 
    private:
     VkInstance instance = nullptr;
@@ -30,3 +31,5 @@ class VulkanInstance {
     void setupCreateInfo(VkInstanceCreateInfo &createInfo, VkApplicationInfo &appInfo);
     void setupValidationLayers(VkInstanceCreateInfo &createInfo);
 };
+
+}  // namespace VulkanCore
