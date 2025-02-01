@@ -9,8 +9,8 @@ void VulkanCore::init(GLFWwindow* window, const std::string& appName) {
 
     // The window surface has to be created before devices
     surface.createSurface(window, vulkanInstance.getInstance());
-    physicalDevice.pickPhysicalDevice(vulkanInstance.getInstance());
-    logicalDevice.createLogicalDevice(physicalDevice.getPhysicalDevice());
+    physicalDevice.pickPhysicalDevice(vulkanInstance.getInstance(), surface.getSurface());
+    logicalDevice.createLogicalDevice(physicalDevice);
 }
 
 void VulkanCore::cleanup() {

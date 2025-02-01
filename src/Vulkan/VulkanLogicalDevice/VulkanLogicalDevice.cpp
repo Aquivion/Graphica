@@ -10,12 +10,10 @@ namespace VulkanCore {
 
 void VulkanLogicalDevice::cleanup() { vkDestroyDevice(logicalDevice, nullptr); }
 
-void VulkanLogicalDevice::createLogicalDevice(const VkPhysicalDevice physicalDevice) {
-    QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
-
+void VulkanLogicalDevice::createLogicalDevice(const VulkanPhysicalDevice &device) {
     VkDeviceQueueCreateInfo queueCreateInfo{};
     queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-    queueCreateInfo.queueFamilyIndex = indices.graphicsFamily.value();
+    queueCreateInfo.queueFamilyIndex = device.getQueueFamilyIndices().graphicsFamily.value();
     queueCreateInfo.queueCount = 1;
 
     float queuePriority = 1.0f;
@@ -30,7 +28,8 @@ void VulkanLogicalDevice::createLogicalDevice(const VkPhysicalDevice physicalDev
     createInfo.pEnabledFeatures = &deviceFeatures;
     createInfo.enabledExtensionCount = 0;
 
-    if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &logicalDevice) != VK_SUCCESS) {
+    if (vkCreateDevice(device.getPhysicalDevice(), &createInfo, nullptr, &logicalDevice) !=
+        VK_SUCCESS) {
         throw std::runtime_error("failed to create logical device!");
     }
 

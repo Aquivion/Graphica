@@ -6,11 +6,13 @@
 
 namespace VulkanCore {
 
+class VulkanPhysicalDevice;
+
 class VulkanLogicalDevice {
    public:
     VulkanLogicalDevice() = default;
 
-    void createLogicalDevice(const VkPhysicalDevice physicalDevice);
+    void createLogicalDevice(const VulkanPhysicalDevice &device);
 
     void cleanup();
 
