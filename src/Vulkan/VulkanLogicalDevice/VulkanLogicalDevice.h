@@ -3,6 +3,9 @@
 #include <vulkan/vulkan.h>
 
 #include <optional>
+#include <vector>
+
+#include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h";
 
 namespace VulkanCore {
 
@@ -18,6 +21,10 @@ class VulkanLogicalDevice {
 
    private:
     VkDevice logicalDevice = VK_NULL_HANDLE;
+    VkQueue presentQueue;
+
+    void createQueueCreateInfos(std::vector<VkDeviceQueueCreateInfo> &queueCreateInfos,
+                                const QueueFamilyIndices &indices);
 };
 
 }  // namespace VulkanCore
