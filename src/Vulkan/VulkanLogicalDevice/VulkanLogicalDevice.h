@@ -5,11 +5,10 @@
 #include <optional>
 #include <vector>
 
-#include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h";
-
 namespace VulkanCore {
 
 class VulkanPhysicalDevice;
+class QueueFamilyIndices;
 
 class VulkanLogicalDevice {
    public:
@@ -24,7 +23,7 @@ class VulkanLogicalDevice {
     VkQueue presentQueue;
 
     void createQueueCreateInfos(std::vector<VkDeviceQueueCreateInfo> &queueCreateInfos,
-                                const QueueFamilyIndices &indices);
+                                const QueueFamilyIndices &indices) const;
 };
 
 }  // namespace VulkanCore

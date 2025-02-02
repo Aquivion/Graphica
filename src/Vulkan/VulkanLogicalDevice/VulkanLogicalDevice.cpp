@@ -4,6 +4,8 @@
 #include <set>
 #include <stdexcept>
 
+#include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h"
+
 namespace VulkanCore {
 
 void VulkanLogicalDevice::cleanup() { vkDestroyDevice(logicalDevice, nullptr); }
@@ -24,16 +26,21 @@ void VulkanLogicalDevice::createLogicalDevice(const VulkanPhysicalDevice &device
 
     if (vkCreateDevice(device.getPhysicalDevice(), &createInfo, nullptr, &logicalDevice) !=
         VK_SUCCESS) {
-        throw std::runtime_error("failed to create logical device!");
+        throw std::runtime_error("Failed to create logical device!");
+    }
+
+    if (!indices.presentFamily.has_value()) {
+        throw std::runtime_error("No present queue family found!");
     }
 
     vkGetDeviceQueue(logicalDevice, indices.presentFamily.value(), 0, &presentQueue);
 
-    std::cout << "Logical device creation successful!" << std::endl;
+    std::cout << "Logical device created successfully!" << std::endl;
 }
 
 void VulkanLogicalDevice::createQueueCreateInfos(
-    std::vector<VkDeviceQueueCreateInfo> &queueCreateInfos, const QueueFamilyIndices &indices) {
+    std::vector<VkDeviceQueueCreateInfo> &queueCreateInfos,
+    const QueueFamilyIndices &indices) const {
     std::set<uint32_t> uniqueQueueFamilies = {indices.graphicsFamily.value(),
                                               indices.presentFamily.value()};
 
