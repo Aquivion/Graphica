@@ -16,6 +16,8 @@ class VulkanLogicalDevice {
 
     void createLogicalDevice(const VulkanPhysicalDevice &device);
 
+    VkDevice getLogicalDevice() const { return logicalDevice; }
+
     void cleanup();
 
    private:

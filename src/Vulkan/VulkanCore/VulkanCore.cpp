@@ -14,10 +14,11 @@ void VulkanCore::init(GLFWwindow* window, const std::string& appName) {
     surface.createSurface(window, vulkanInstance.getInstance());
     physicalDevice.pickPhysicalDevice(vulkanInstance.getInstance(), surface.getSurface());
     logicalDevice.createLogicalDevice(physicalDevice);
-    swapChain.createSwapChain(physicalDevice.getPhysicalDevice(), surface.getSurface(), window);
+    swapChain.createSwapChain(physicalDevice, logicalDevice.getLogicalDevice(), surface.getSurface(), window);
 }
 
 void VulkanCore::cleanup() {
+    swapChain.cleanup(logicalDevice.getLogicalDevice());
     logicalDevice.cleanup();
     surface.cleanup(vulkanInstance.getInstance());
 }
