@@ -2,7 +2,10 @@
 
 namespace VulkanCore {
 
-VulkanCore::VulkanCore() : vulkanInstance{}, physicalDevice{}, logicalDevice{}, surface{} {}
+const std::vector<const char*> deviceExtensions = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+
+VulkanCore::VulkanCore()
+    : vulkanInstance{}, physicalDevice{deviceExtensions}, logicalDevice{}, surface{} {}
 
 void VulkanCore::init(GLFWwindow* window, const std::string& appName) {
     vulkanInstance.createInstance(appName);

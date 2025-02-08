@@ -3,6 +3,7 @@
 #include <vulkan/vulkan.h>
 
 #include <optional>
+#include <vector>
 
 namespace VulkanCore {
 
@@ -23,6 +24,8 @@ QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surfa
 class VulkanPhysicalDevice {
    public:
     VulkanPhysicalDevice() = default;
+    VulkanPhysicalDevice(const std::vector<const char*>& deviceExtensions)
+        : deviceExtensions(deviceExtensions) {}
 
     void pickPhysicalDevice(VkInstance instance, VkSurfaceKHR surface);
     VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
@@ -34,11 +37,15 @@ class VulkanPhysicalDevice {
 
     QueueFamilyIndices indices;
 
+    const std::vector<const char*> deviceExtensions;
+
     /**
      * @brief Checks if the physical device (graphics card) is suitable for operations that need to
      * be performed
      */
     bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface);
+
+    bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 };
 
 }  // namespace VulkanCore

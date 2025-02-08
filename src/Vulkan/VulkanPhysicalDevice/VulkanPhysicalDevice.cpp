@@ -1,6 +1,7 @@
 #include "VulkanPhysicalDevice.h"
 
 #include <iostream>
+#include <set>
 #include <stdexcept>
 #include <vector>
 
@@ -23,8 +24,8 @@ QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surfa
             indices.graphicsFamily = i;
         }
 
-        // Check if the device also has supports a queue family that can present images to the
-        // selected surface
+        // Check if the device also supports a queue family that can present images to the selected
+        // surface
         vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
         if (presentSupport) {
             indices.presentFamily = i;
@@ -64,12 +65,36 @@ void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR 
     indices = findQueueFamilies(physicalDevice, surface);
 }
 
+/**
+ * See https://shorturl.at/BKkJU in the Vulkan tutorial, on how to select devices that
+ * fullfill specifc features and properties that the application needs
+ */
 bool VulkanPhysicalDevice::isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface) {
-    // Because Vulkan support of the device is all we need for now we just go with any device that
-    // is found. See https://shorturl.at/BKkJU in the Vulkan tutorial, on how to select devices that
-    // fullfill specifc features and properties that the application needs
-    return findQueueFamilies(device, surface).isComplete();
-    ;
+    QueueFamilyIndices indices = findQueueFamilies(device, surface);
+
+    bool extensionsSupported = checkDeviceExtensionSupport(device);
+
+    return indices.isComplete() && extensionsSupported;
+}
+
+bool VulkanPhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice device) {
+    uint32_t extensionCount;
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount,
+                                         availableExtensions.data());
+
+    std::set<std::string> requiredExtensions(deviceExtensions.begin(), deviceExtensions.end());
+
+    for (const auto& extension : availableExtensions) {
+        requiredExtensions.erase(extension.extensionName);
+        if (requiredExtensions.empty()) {
+            break;
+        }
+    }
+
+    return requiredExtensions.empty();
 }
 
 }  // namespace VulkanCore
