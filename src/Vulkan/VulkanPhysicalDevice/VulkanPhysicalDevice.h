@@ -24,13 +24,14 @@ QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surfa
 class VulkanPhysicalDevice {
    public:
     VulkanPhysicalDevice() = default;
-    VulkanPhysicalDevice(const std::vector<const char*>& deviceExtensions)
-        : deviceExtensions(deviceExtensions) {}
+    VulkanPhysicalDevice(const std::vector<const char*>& requiredDeviceExtensions);
 
     void pickPhysicalDevice(VkInstance instance, VkSurfaceKHR surface);
     VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
 
     const QueueFamilyIndices& getQueueFamilyIndices() const { return indices; }
+
+    const std::vector<const char*>& getRequiredExtensions() const { return requiredExtensions; }
 
    private:
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
@@ -39,7 +40,7 @@ class VulkanPhysicalDevice {
 
     QueueFamilyIndices indices;
 
-    const std::vector<const char*> deviceExtensions;
+    const std::vector<const char*> requiredExtensions;
 
     /**
      * @brief Checks if the physical device (graphics card) is suitable for operations that need to

@@ -40,6 +40,9 @@ QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surfa
     return indices;
 }
 
+VulkanPhysicalDevice::VulkanPhysicalDevice(const std::vector<const char*>& requiredDeviceExtensions)
+    : requiredExtensions(requiredDeviceExtensions) {}
+
 void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR surface) {
     uint32_t deviceCount = 0;
     vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
@@ -88,16 +91,17 @@ bool VulkanPhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice device) 
     vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount,
                                          availableExtensions.data());
 
-    std::set<std::string> requiredExtensions(deviceExtensions.begin(), deviceExtensions.end());
+    std::set<std::string> required(requiredExtensions.begin(), requiredExtensions.end());
 
     for (const auto& extension : availableExtensions) {
-        requiredExtensions.erase(extension.extensionName);
-        if (requiredExtensions.empty()) {
+        required.erase(extension.extensionName);
+        if (required.empty()) {
             break;
         }
     }
 
-    return requiredExtensions.empty();
+    return required.empty();
+}
 }
 
 }  // namespace VulkanCore
