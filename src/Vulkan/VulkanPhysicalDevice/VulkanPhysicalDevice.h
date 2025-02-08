@@ -13,6 +13,12 @@ struct QueueFamilyIndices {
     bool isComplete() { return graphicsFamily.has_value() && presentFamily.has_value(); }
 };
 
+struct SwapChainSupportDetails {
+    VkSurfaceCapabilitiesKHR capabilities;
+    std::vector<VkSurfaceFormatKHR> formats;
+    std::vector<VkPresentModeKHR> presentModes;
+};
+
 /**
  * @brief Finds the supported queue families for the given device. Every command that is
  * interacting with the graphics card needs to be submitted to a queue. There are different
@@ -49,6 +55,8 @@ class VulkanPhysicalDevice {
     bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface);
 
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
+
+    SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
 };
 
 }  // namespace VulkanCore
