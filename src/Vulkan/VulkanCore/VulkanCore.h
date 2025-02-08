@@ -1,11 +1,13 @@
 #pragma once
 
+#include "Vulkan/VulkanDebugMessenger/VulkanDebugMessenger.h"
 #include "Vulkan/VulkanInstance/VulkanInstance.h"
 #include "Vulkan/VulkanLogicalDevice/VulkanLogicalDevice.h"
 #include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h"
 #include "Vulkan/VulkanSurface/VulkanSurface.h"
 #include "Vulkan/VulkanSwapChain/VulkanSwapChain.h"
 #include "vulkan/vulkan.h"
+
 
 namespace VulkanCore {
 
@@ -31,6 +33,7 @@ class VulkanCore {
     VulkanLogicalDevice logicalDevice;
     VulkanSurface surface;
     VulkanSwapChain swapChain;
+    VulkanDebugMessenger debugMessenger;
 };
 
 }  // namespace VulkanCore

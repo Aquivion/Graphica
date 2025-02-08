@@ -18,6 +18,7 @@ class VulkanInstance {
     VulkanInstance &operator=(VulkanInstance &&) = delete;
 
     void createInstance(const std::string &appName);
+    void cleanup();
     VkInstance getInstance() const;
 
    private:
@@ -28,8 +29,11 @@ class VulkanInstance {
     bool checkValidationLayerSupport();
 
     void setupAppInfo(VkApplicationInfo &appInfo, const std::string &appName);
-    void setupCreateInfo(VkInstanceCreateInfo &createInfo, VkApplicationInfo &appInfo);
-    void setupValidationLayers(VkInstanceCreateInfo &createInfo);
+    void setupCreateInfo(VkInstanceCreateInfo &createInfo, VkApplicationInfo &appInfo,
+                         const std::vector<const char *> &extensions);
+    void setupValidationLayers(VkInstanceCreateInfo &createInfo, VkDebugUtilsMessengerCreateInfoEXT &debugCreateInfo);
+
+    std::vector<const char *> getRequiredExtensions();
 };
 
 }  // namespace VulkanCore

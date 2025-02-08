@@ -6,6 +6,8 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "Vulkan/VulkanDebugMessenger/VulkanDebugMessenger.h"
+
 #ifndef NDEBUG
 const bool enableValidationLayers = true;
 #else
@@ -19,8 +21,11 @@ void VulkanInstance::createInstance(const std::string &appName) {
     setupAppInfo(appInfo, appName);
 
     VkInstanceCreateInfo createInfo{};
-    setupCreateInfo(createInfo, appInfo);
-    setupValidationLayers(createInfo);
+    auto extensions = getRequiredExtensions();
+
+    VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo;
+    setupValidationLayers(createInfo, debugCreateInfo);
+    setupCreateInfo(createInfo, appInfo, extensions);
 
     if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create Vulkan instance!");
@@ -28,6 +33,8 @@ void VulkanInstance::createInstance(const std::string &appName) {
 
     std::cout << "Vulkan instance created successfully!" << std::endl;
 }
+
+void VulkanInstance::cleanup() { vkDestroyInstance(instance, nullptr); }
 
 void VulkanInstance::setupAppInfo(VkApplicationInfo &appInfo, const std::string &appName) {
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -38,19 +45,39 @@ void VulkanInstance::setupAppInfo(VkApplicationInfo &appInfo, const std::string 
     appInfo.apiVersion = VK_API_VERSION_1_0;
 }
 
-void VulkanInstance::setupCreateInfo(VkInstanceCreateInfo &createInfo, VkApplicationInfo &appInfo) {
-    // GLFW requires certain extensions for Vulkan to work with a window
-    uint32_t glfwExtensionCount = 0;
-    const char **glfwExtensions;
-    glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-    std::vector<const char *> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+void VulkanInstance::setupCreateInfo(VkInstanceCreateInfo &createInfo, VkApplicationInfo &appInfo,
+                                     const std::vector<const char *> &extensions) {
     checkExtensionSupport(extensions);
 
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &appInfo;
-    createInfo.enabledExtensionCount = glfwExtensionCount;
-    createInfo.ppEnabledExtensionNames = glfwExtensions;
-    createInfo.enabledLayerCount = 0;
+    createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
+    createInfo.ppEnabledExtensionNames = extensions.data();
+}
+
+void VulkanInstance::setupValidationLayers(VkInstanceCreateInfo &createInfo,
+                                           VkDebugUtilsMessengerCreateInfoEXT &debugCreateInfo) {
+    // todo: See
+    // https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/00_Setup/02_Validation_layers.html
+    // to setup a callback function to manage error messages
+
+    validationLayers = {"VK_LAYER_KHRONOS_validation"};
+
+    if (enableValidationLayers && !checkValidationLayerSupport()) {
+        throw std::runtime_error("validation layers requested, but not available!");
+    }
+
+    if (enableValidationLayers) {
+        std::cout << "Validation layers enabled!" << std::endl;
+        createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
+        createInfo.ppEnabledLayerNames = validationLayers.data();
+
+        populateDebugMessengerCreateInfo(debugCreateInfo);
+        createInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT *)&debugCreateInfo;
+    } else {
+        createInfo.enabledLayerCount = 0;
+        createInfo.pNext = nullptr;
+    }
 }
 
 void VulkanInstance::checkExtensionSupport(const std::vector<const char *> &requiredExtensions) {
@@ -71,26 +98,6 @@ void VulkanInstance::checkExtensionSupport(const std::vector<const char *> &requ
         if (!found) {
             throw std::runtime_error(std::string("Missing required Vulkan extension: ") + required);
         }
-    }
-}
-
-void VulkanInstance::setupValidationLayers(VkInstanceCreateInfo &createInfo) {
-    // todo: See
-    // https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/00_Setup/02_Validation_layers.html
-    // to setup a callback function to manage error messages
-
-    validationLayers = {"VK_LAYER_KHRONOS_validation"};
-
-    if (enableValidationLayers && !checkValidationLayerSupport()) {
-        throw std::runtime_error("validation layers requested, but not available!");
-    }
-
-    if (enableValidationLayers) {
-        std::cout << "Validation layers enabled!" << std::endl;
-        createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
-        createInfo.ppEnabledLayerNames = validationLayers.data();
-    } else {
-        createInfo.enabledLayerCount = 0;
     }
 }
 
@@ -124,6 +131,21 @@ VkInstance VulkanInstance::getInstance() const {
     }
 
     return instance;
+}
+
+std::vector<const char *> VulkanInstance::getRequiredExtensions() {
+    // GLFW requires certain extensions for Vulkan to work with a window
+    uint32_t glfwExtensionCount = 0;
+    const char **glfwExtensions;
+    glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+    std::vector<const char *> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
+
+    if (enableValidationLayers) {
+        extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+    }
+
+    return extensions;
 }
 
 }  // namespace VulkanCore
