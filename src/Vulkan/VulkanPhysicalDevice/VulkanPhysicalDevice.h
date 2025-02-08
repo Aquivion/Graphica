@@ -13,11 +13,7 @@ struct QueueFamilyIndices {
     bool isComplete() { return graphicsFamily.has_value() && presentFamily.has_value(); }
 };
 
-struct SwapChainSupportDetails {
-    VkSurfaceCapabilitiesKHR capabilities;
-    std::vector<VkSurfaceFormatKHR> formats;
-    std::vector<VkPresentModeKHR> presentModes;
-};
+class SwapChainSupportDetails;
 
 /**
  * @brief Finds the supported queue families for the given device. Every command that is
@@ -26,6 +22,8 @@ struct SwapChainSupportDetails {
  * commands
  */
 QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surface);
+
+SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
 
 class VulkanPhysicalDevice {
    public:
@@ -55,8 +53,6 @@ class VulkanPhysicalDevice {
     bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface);
 
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
-
-    SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
 };
 
 }  // namespace VulkanCore

@@ -5,7 +5,7 @@ namespace VulkanCore {
 const std::vector<const char*> deviceExtensions = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 
 VulkanCore::VulkanCore()
-    : vulkanInstance{}, physicalDevice{deviceExtensions}, logicalDevice{}, surface{} {}
+    : vulkanInstance{}, physicalDevice{deviceExtensions}, logicalDevice{}, surface{}, swapChain{} {}
 
 void VulkanCore::init(GLFWwindow* window, const std::string& appName) {
     vulkanInstance.createInstance(appName);
@@ -14,6 +14,7 @@ void VulkanCore::init(GLFWwindow* window, const std::string& appName) {
     surface.createSurface(window, vulkanInstance.getInstance());
     physicalDevice.pickPhysicalDevice(vulkanInstance.getInstance(), surface.getSurface());
     logicalDevice.createLogicalDevice(physicalDevice);
+    swapChain.createSwapChain(physicalDevice.getPhysicalDevice(), surface.getSurface(), window);
 }
 
 void VulkanCore::cleanup() {

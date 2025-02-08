@@ -4,6 +4,7 @@
 #include "Vulkan/VulkanLogicalDevice/VulkanLogicalDevice.h"
 #include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h"
 #include "Vulkan/VulkanSurface/VulkanSurface.h"
+#include "Vulkan/VulkanSwapChain/VulkanSwapChain.h"
 #include "vulkan/vulkan.h"
 
 namespace VulkanCore {
@@ -29,6 +30,7 @@ class VulkanCore {
     VulkanPhysicalDevice physicalDevice;
     VulkanLogicalDevice logicalDevice;
     VulkanSurface surface;
+    VulkanSwapChain swapChain;
 };
 
 }  // namespace VulkanCore
