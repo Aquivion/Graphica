@@ -62,6 +62,9 @@ void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR 
         throw std::runtime_error("failed to find a suitable GPU!");
     }
 
+    vkGetPhysicalDeviceProperties(physicalDevice, &deviceProperties);
+    std::cout << "Selected GPU: " << deviceProperties.deviceName << std::endl;
+
     indices = findQueueFamilies(physicalDevice, surface);
 }
 

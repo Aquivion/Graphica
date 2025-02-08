@@ -35,6 +35,8 @@ class VulkanPhysicalDevice {
    private:
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 
+    VkPhysicalDeviceProperties deviceProperties;
+
     QueueFamilyIndices indices;
 
     const std::vector<const char*> deviceExtensions;
