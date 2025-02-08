@@ -86,6 +86,7 @@ void VulkanInstance::setupValidationLayers(VkInstanceCreateInfo &createInfo) {
     }
 
     if (enableValidationLayers) {
+        std::cout << "Validation layers enabled!" << std::endl;
         createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
         createInfo.ppEnabledLayerNames = validationLayers.data();
     } else {

@@ -6,7 +6,6 @@
 
 #include "Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.h"
 
-
 namespace VulkanCore {
 
 void VulkanSwapChain::createSwapChain(VulkanPhysicalDevice& device, VkDevice logicalDevice, VkSurfaceKHR surface,
