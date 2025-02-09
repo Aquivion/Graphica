@@ -30,6 +30,7 @@ class VulkanSwapChain {
     VkSurfaceFormatKHR surfaceFormat;
     VkPresentModeKHR presentMode;
     VkExtent2D extent;
+    std::vector<VkImage> swapChainImages;
 
     VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 

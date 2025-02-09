@@ -22,6 +22,11 @@ void VulkanSwapChain::createSwapChain(VulkanPhysicalDevice& device, VkDevice log
         throw std::runtime_error("failed to create swap chain!");
     }
 
+    uint32_t imageCount;
+    vkGetSwapchainImagesKHR(logicalDevice, swapChain, &imageCount, nullptr);
+    swapChainImages.resize(imageCount);
+    vkGetSwapchainImagesKHR(logicalDevice, swapChain, &imageCount, swapChainImages.data());
+
     std::cout << "Swap chain created successfully!" << std::endl;
 }
 
@@ -41,6 +46,7 @@ void VulkanSwapChain::initCreateInfo(VkSwapchainCreateInfoKHR& info, VkSurfaceKH
     info.imageFormat = surfaceFormat.format;
     info.imageColorSpace = surfaceFormat.colorSpace;
     info.imageExtent = extent;
+
     info.imageArrayLayers = 1;  // Always 1 unless stereoscopic 3D application
 
     // Render directly to images, use VK_IMAGE_USAGE_TRANSFER_DST_BIT if you want to render to a

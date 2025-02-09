@@ -21,8 +21,6 @@ class VulkanDebugMessenger {
 
     void cleanup(VkInstance instance);
 
-    // const VkDebugUtilsMessengerCreateInfoEXT& getDebugMessengerCreateInfo() const { return createInfo; };
-
    private:
     VkDebugUtilsMessengerEXT debugMessenger;
 
