@@ -24,6 +24,10 @@ class VulkanSwapChain {
 
     void cleanup(VkDevice logicalDevice);
 
+    const std::vector<VkImage>& getSwapChainImages() const { return swapChainImages; }
+    const VkSurfaceFormatKHR& getSurfaceFormat() const { return surfaceFormat; }
+    const VkExtent2D& getExtent() const { return extent; }
+
    private:
     VkSwapchainKHR swapChain;
     SwapChainSupportDetails swapChainSupportDetails;

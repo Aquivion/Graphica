@@ -26,7 +26,8 @@ set(SOURCES
     src/Vulkan/VulkanLogicalDevice/VulkanLogicalDevice.cpp
     src/Vulkan/VulkanSurface/VulkanSurface.cpp
     src/Vulkan/VulkanSwapchain/VulkanSwapchain.cpp
-    src/Vulkan/VulkanDebugMessenger/VulkanDebugMessenger.cpp)
+    src/Vulkan/VulkanDebugMessenger/VulkanDebugMessenger.cpp
+    src/Vulkan/VulkanImageView/VulkanImageView.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})
