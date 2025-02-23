@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Utils/utils.h"
-#include "Vulkan/VulkanGraphicsPipeline/VulkanShader/VulkanShaderModule/VulkanShaderModule.h"
+#include "Vulkan/VulkanShaderModule/VulkanShaderModule.h"
 
 namespace VulkanCore {
 

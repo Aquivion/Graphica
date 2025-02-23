@@ -30,7 +30,7 @@ set(SOURCES
     src/Vulkan/VulkanDebugMessenger/VulkanDebugMessenger.cpp
     src/Vulkan/VulkanImageView/VulkanImageView.cpp
     src/Vulkan/VulkanGraphicsPipeline/VulkanGraphicsPipeline.cpp
-    src/Vulkan/VulkanGraphicsPipeline/VulkanShader/VulkanShaderModule/VulkanShaderModule.cpp)
+    src/Vulkan/VulkanShaderModule/VulkanShaderModule.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})
