@@ -14,5 +14,5 @@ Before you start, ensure you have the following installed:
   - [CMake Download](https://cmake.org/download/)
 - **Vulkan SDK (version 1.4.304.0):** The Vulkan SDK provides the necessary tools and libraries for Vulkan development.
   - Download the appropriate version from the [Vulkan SDK website](https://vulkan.lunarg.com/). Make sure to download version `1.4.304.0` to avoid compatibility issues.
-- **A C++ compiler that supports C++17:** For example, GCC, Clang, or MSVC.
+- **A C++ compiler that supports C++17:** For example, GCC, Clang, or MSVC, for example from [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
 - **Git:** For cloning the repository.
