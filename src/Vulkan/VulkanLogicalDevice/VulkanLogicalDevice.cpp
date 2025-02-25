@@ -21,8 +21,9 @@ void VulkanLogicalDevice::createLogicalDevice(const VulkanPhysicalDevice &device
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.pQueueCreateInfos = queueCreateInfos.data();
     createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
+    createInfo.enabledExtensionCount = static_cast<uint32_t>(device.getRequiredExtensions().size());
+    createInfo.ppEnabledExtensionNames = device.getRequiredExtensions().data();
     createInfo.pEnabledFeatures = &deviceFeatures;
-    createInfo.enabledExtensionCount = 0;
 
     if (vkCreateDevice(device.getPhysicalDevice(), &createInfo, nullptr, &logicalDevice) !=
         VK_SUCCESS) {

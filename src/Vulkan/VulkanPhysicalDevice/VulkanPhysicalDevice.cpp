@@ -1,8 +1,11 @@
 #include "VulkanPhysicalDevice.h"
 
 #include <iostream>
+#include <set>
 #include <stdexcept>
 #include <vector>
+
+#include "Vulkan/VulkanSwapChain/VulkanSwapChain.h"
 
 namespace VulkanCore {
 
@@ -23,8 +26,8 @@ QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surfa
             indices.graphicsFamily = i;
         }
 
-        // Check if the device also has supports a queue family that can present images to the
-        // selected surface
+        // Check if the device also supports a queue family that can present images to the selected
+        // surface
         vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
         if (presentSupport) {
             indices.presentFamily = i;
@@ -38,6 +41,33 @@ QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surfa
 
     return indices;
 }
+
+SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface) {
+    SwapChainSupportDetails details;
+
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &details.capabilities);
+
+    uint32_t formatCount;
+    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, nullptr);
+
+    if (formatCount != 0) {
+        details.formats.resize(formatCount);
+        vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, details.formats.data());
+    }
+
+    uint32_t presentModeCount;
+    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, nullptr);
+
+    if (presentModeCount != 0) {
+        details.presentModes.resize(presentModeCount);
+        vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, details.presentModes.data());
+    }
+
+    return details;
+}
+
+VulkanPhysicalDevice::VulkanPhysicalDevice(const std::vector<const char*>& requiredDeviceExtensions)
+    : requiredExtensions(requiredDeviceExtensions) {}
 
 void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR surface) {
     uint32_t deviceCount = 0;
@@ -61,15 +91,47 @@ void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR 
         throw std::runtime_error("failed to find a suitable GPU!");
     }
 
+    vkGetPhysicalDeviceProperties(physicalDevice, &deviceProperties);
+    std::cout << "Selected GPU: " << deviceProperties.deviceName << std::endl;
+
     indices = findQueueFamilies(physicalDevice, surface);
 }
 
+/**
+ * See https://shorturl.at/BKkJU in the Vulkan tutorial, on how to select devices that
+ * fullfill specifc features and properties that the application needs
+ */
 bool VulkanPhysicalDevice::isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface) {
-    // Because Vulkan support of the device is all we need for now we just go with any device that
-    // is found. See https://shorturl.at/BKkJU in the Vulkan tutorial, on how to select devices that
-    // fullfill specifc features and properties that the application needs
-    return findQueueFamilies(device, surface).isComplete();
-    ;
+    QueueFamilyIndices indices = findQueueFamilies(device, surface);
+
+    bool extensionsSupported = checkDeviceExtensionSupport(device);
+
+    bool swapChainAdequate = false;
+    if (extensionsSupported) {
+        SwapChainSupportDetails swapChainSupport = querySwapChainSupport(device, surface);
+        swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+    }
+
+    return indices.isComplete() && extensionsSupported && swapChainAdequate;
+}
+
+bool VulkanPhysicalDevice::checkDeviceExtensionSupport(VkPhysicalDevice device) {
+    uint32_t extensionCount;
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
+
+    std::set<std::string> required(requiredExtensions.begin(), requiredExtensions.end());
+
+    for (const auto& extension : availableExtensions) {
+        required.erase(extension.extensionName);
+        if (required.empty()) {
+            break;
+        }
+    }
+
+    return required.empty();
 }
 
 }  // namespace VulkanCore

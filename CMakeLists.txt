@@ -19,12 +19,18 @@ add_subdirectory(libs/glm)
 # Collect your source files
 set(SOURCES 
     src/main.cpp
+    src/Utils/Utils.cpp
     src/VulkanApp/VulkanApp.cpp
     src/Vulkan/VulkanCore/VulkanCore.cpp
     src/Vulkan/VulkanInstance/VulkanInstance.cpp
     src/Vulkan/VulkanPhysicalDevice/VulkanPhysicalDevice.cpp
     src/Vulkan/VulkanLogicalDevice/VulkanLogicalDevice.cpp
-    src/Vulkan/VulkanSurface/VulkanSurface.cpp)
+    src/Vulkan/VulkanSurface/VulkanSurface.cpp
+    src/Vulkan/VulkanSwapchain/VulkanSwapchain.cpp
+    src/Vulkan/VulkanDebugMessenger/VulkanDebugMessenger.cpp
+    src/Vulkan/VulkanImageView/VulkanImageView.cpp
+    src/Vulkan/VulkanGraphicsPipeline/VulkanGraphicsPipeline.cpp
+    src/Vulkan/VulkanShaderModule/VulkanShaderModule.cpp)
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})
