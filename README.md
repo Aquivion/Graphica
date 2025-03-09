@@ -40,3 +40,13 @@ Before building the project, you need to download GLFW and GLM into a `libs` fol
    ```
 
 After cloning these repositories, re-run CMake so that it picks up the new libraries then launch the project. If you cannot find any errors in the terminal, you are ready to go :rocket:
+
+### Optional: VS Code Integration
+
+If you use Visual Studio Code, you can enhance your development experience:
+
+**Install the CMake Tools extension by Microsoft:**
+This extension helps you configure, build, and debug CMake projects directly from VS Code. You can install it from the VS Code Marketplace.
+
+**Configure your preferred C++ compiler:**
+Within the CMake Tools extension, you can set the preferred compiler that supports C++17. For example, for MSVC, ensure the kit specifies a compiler version that fully supports C++17.
