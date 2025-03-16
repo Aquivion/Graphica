@@ -23,10 +23,12 @@ void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR 
     std::vector<VkPhysicalDevice> devices(deviceCount);
     vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
 
+    int bestDeviceScore = -1;
     for (const auto& device : devices) {
-        if (isDeviceSuitable(device, surface)) {
+        int score = rateDeviceSuitability(device, surface);
+        if (score > bestDeviceScore) {
             physicalDevice = device;
-            break;
+            bestDeviceScore = score;
         }
     }
 
@@ -42,7 +44,7 @@ void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR 
 
 int VulkanPhysicalDevice::rateDeviceSuitability(VkPhysicalDevice device, VkSurfaceKHR surface) {
     if (!isDeviceSuitable(device, surface)) {
-        return 0;
+        return -1;
     }
 
     VkPhysicalDeviceProperties deviceProperties;
