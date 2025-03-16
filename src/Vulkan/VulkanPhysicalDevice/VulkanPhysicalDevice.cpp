@@ -40,6 +40,26 @@ void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR 
     indices = findQueueFamilies(physicalDevice, surface);
 }
 
+int VulkanPhysicalDevice::rateDeviceSuitability(VkPhysicalDevice device) {
+    VkPhysicalDeviceProperties deviceProperties;
+    vkGetPhysicalDeviceProperties(device, &deviceProperties);
+
+    VkPhysicalDeviceFeatures deviceFeatures;
+    vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+    int score = 0;
+
+    // Discrete GPUs have a significant performance advantage
+    if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
+        score += 1000;
+    }
+
+    // Maximum possible size of textures affects graphics quality
+    score += deviceProperties.limits.maxImageDimension2D;
+
+    return score;
+}
+
 /**
  * See https://shorturl.at/BKkJU in the Vulkan tutorial, on how to select devices that
  * fullfill specifc features and properties that the application needs
