@@ -52,7 +52,7 @@ class VulkanPhysicalDevice {
      */
     bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface);
 
-    int rateDeviceSuitability(VkPhysicalDevice device);
+    int rateDeviceSuitability(VkPhysicalDevice device, VkSurfaceKHR surface);
 
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 };

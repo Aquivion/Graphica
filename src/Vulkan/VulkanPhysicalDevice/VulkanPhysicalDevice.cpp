@@ -40,7 +40,11 @@ void VulkanPhysicalDevice::pickPhysicalDevice(VkInstance instance, VkSurfaceKHR 
     indices = findQueueFamilies(physicalDevice, surface);
 }
 
-int VulkanPhysicalDevice::rateDeviceSuitability(VkPhysicalDevice device) {
+int VulkanPhysicalDevice::rateDeviceSuitability(VkPhysicalDevice device, VkSurfaceKHR surface) {
+    if (!isDeviceSuitable(device, surface)) {
+        return 0;
+    }
+
     VkPhysicalDeviceProperties deviceProperties;
     vkGetPhysicalDeviceProperties(device, &deviceProperties);
 
