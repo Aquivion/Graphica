@@ -41,7 +41,6 @@ void VulkanApp::mainLoop() {
 }
 
 void VulkanApp::cleanup() {
-    // Vulkan objects like devices and surfaces need to be destroyed before the instance is
     vulkanCore.cleanup();
 
     glfwDestroyWindow(window);

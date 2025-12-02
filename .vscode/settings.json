@@ -4,7 +4,8 @@
         "iostream": "cpp",
         "stdexcept": "cpp",
         "xstring": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "set": "cpp"
     },
     "cmake.generator": "Ninja",
     "editor.formatOnSave": true,
